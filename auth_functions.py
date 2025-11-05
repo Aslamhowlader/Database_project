@@ -9,7 +9,7 @@ class AuthManager:
         """Validate email format"""
         if not email:
             return True
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        pattern = r'^[a-zA-Z0-9._%+-]+@gmail\.com$'
         return re.match(pattern, email) is not None
 
     def validate_phone(self, phone):
@@ -90,3 +90,91 @@ class AuthManager:
             return False, "Please enter both username and password"
         
         return self.db.login_user(username, password)
+
+    # Admin methods
+    def get_all_users(self, admin_id):
+        """Get all users (admin only)"""
+        return self.db.get_all_users(admin_id)
+
+    def update_user_status(self, user_id, status):
+        """Update user status"""
+        return self.db.update_user_status(user_id, status)
+
+    def delete_user(self, user_id):
+        """Delete a user"""
+        return self.db.delete_user(user_id)
+
+    def update_user_role(self, user_id, new_role):
+        """Update user role"""
+        return self.db.update_user_role(user_id, new_role)
+
+    def get_user_stats(self):
+        """Get user statistics"""
+        return self.db.get_user_stats()
+
+    # Service methods
+    def create_service(self, service_data):
+        """Create a new service"""
+        return self.db.create_service(service_data)
+
+    def get_all_services(self):
+        """Get all services"""
+        return self.db.get_all_services()
+
+    # Application methods
+    def create_application(self, application_data):
+        """Create a new application"""
+        return self.db.create_application(application_data)
+
+    def get_user_applications(self, user_id):
+        """Get user applications"""
+        return self.db.get_user_applications(user_id)
+
+    def get_all_applications(self):
+        """Get all applications"""
+        return self.db.get_all_applications()
+
+    def update_application_status(self, application_id, status, processed_by, notes=None):
+        """Update application status"""
+        return self.db.update_application_status(application_id, status, processed_by, notes)
+
+    # Report methods - ADMIN ONLY
+    def submit_citizen_report(self, report_data):
+        """Submit a citizen report"""
+        return self.db.submit_report(report_data)
+
+    def get_user_reports(self, user_id):
+        """Get reports for a specific user"""
+        return self.db.get_user_reports(user_id)
+
+    def get_all_reports(self):
+        """Get all reports (Admin only)"""
+        return self.db.get_all_reports()
+
+    def get_department_reports(self, department):
+        """Get reports by department"""
+        return self.db.get_reports_by_department(department)
+
+    def update_report_status(self, report_id, status, assigned_to=None, feedback=None):
+        """Update report status"""
+        return self.db.update_report_status(report_id, status, assigned_to, feedback)
+
+    def delete_report(self, report_id):
+        """Delete a report (Admin only)"""
+        return self.db.delete_report(report_id)
+
+    def get_report_by_id(self, report_id):
+        """Get specific report by ID"""
+        return self.db.get_report_by_id(report_id)
+
+    def update_report_details(self, report_id, title, description, category, priority):
+        """Update report details"""
+        return self.db.update_report_details(report_id, title, description, category, priority)
+
+    def get_report_stats(self):
+        """Get report statistics"""
+        return self.db.get_report_stats()
+
+    def assign_report_to_officer(self, report_id, officer_id):
+        """Assign report to government officer"""
+        return self.db.assign_report_to_officer(report_id, officer_id)
